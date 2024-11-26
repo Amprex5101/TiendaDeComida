@@ -20,9 +20,13 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))  // Mensaje si la conexión es exitosa
   .catch(err => console.log('Error al conectar con MongoDB:', err)); // Manejo de errores de conexión
 
-
-// EJS setup
+// EJS setup: configura múltiples carpetas para vistas
+app.set('views', [
+  path.join(__dirname, 'views'), // Carpeta global de vistas
+  path.join(__dirname, 'modules', 'pedidos', 'Ventas', 'views') // Carpeta específica de módulos
+]);
 app.set('view engine', 'ejs');
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); 
