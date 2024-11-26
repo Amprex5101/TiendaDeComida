@@ -1,0 +1,72 @@
+<header class="restaurante-navbar">
+    <div class="logo">MiEntrega</div>
+    <input type="text" class="search-bar" placeholder="Entrega a domicilio">
+    <nav class="nav-links">
+        <a href="#">Inicio</a>
+        <a href="#">Recoger</a>
+        <a href="#">Ofertas</a>
+        <a href="#">Mi cuenta</a>
+    </nav>
+</header>
+
+<!-- Barra de Categorías -->
+<div class="categorias">
+    <button>Pizza</button>
+    <button>Sushi</button>
+    <button>Hamburguesas</button>
+    <button>Alitas</button>
+    <button>Postres</button>
+    <button>Comida rápida</button>
+    <button>Mexicana</button>
+    <button>Americana</button>
+</div>
+
+<!-- Sección de Promociones -->
+<section class="restaurante-promociones">
+    <div class="promo promo-1">
+        <p>¡Semana de OFertas!</p>
+        <button>Pide aquí</button>
+    </div>
+    <div class="promo promo-2">
+        <p>Es gratis: 4 semanas de MiEntrega Plus</p>
+        <button>Únete ahora</button>
+    </div>
+    <div class="promo promo-3">
+        <p>Te presentamos una experiencia nueva. ¡Prueba lo nuevo!</p>
+        <button>¡Únete!</button>
+    </div>
+</section>
+
+<!-- Sección de Recomendaciones -->
+<section class="recommendaciones">
+    <h2>Populares cerca de ti</h2>
+    <div class="recommendaciones-grid">
+        <div class="restaurante-card card1">
+            <public src="../public/Comida1.jpg" alt="Comida 1">
+            <p>Pollo Parrilla Regia</p>
+            <span>Costo de envío: $17 MXN</span>
+        </div>
+        <div class="restaurante-card">
+            <public src="../public/Comida2.jpg" alt="Comida 2">
+            <p>Restaurante Don Aguilar</p>
+            <span>Costo de envío: $21 MXN</span>
+        </div>
+        <div class="restaurante-card">
+            <public src="../public/Comida3.jpg" alt="Comida 3">
+            <p>Cinépolis</p>
+            <span>Costo de envío: $31 MXN</span>
+        </div>
+        <div class="restaurante-card">
+            <public src="../public/Comida4.jpg" alt="Comida 4">
+            <p>Mon Centro</p>
+            <span>Costo de envío: $25 MXN</span>
+        </div>
+    </div>
+</section>
+<script>
+    document.querySelector(".card1").addEventListener("click", function(event) {
+        // Prevenir la propagación del clic para evitar que el botón intercepte el evento
+        event.stopPropagation();
+        window.location.href = "/pedidos/Ventas/Menu1";
+    });
+</script>

@@ -1,0 +1,100 @@
+/* Añade prefijo para clases únicas */
+.index-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('/images/fondo.png') no-repeat center center fixed;
+    background-size: cover;
+    z-index: -1;
+}
+
+
+.index-header {
+    width: 100%;
+    height: 65px;
+    background-color: #f59e0b;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.index-content {
+    padding: 100px 20px;
+    margin-top: 80px;
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+
+
+.overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro con opacidad */
+    z-index: -1;
+}
+h1{
+    margin-left:278px;
+}
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+   
+}
+
+.search-container input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    margin-top: 10px;
+    
+  
+}
+.btn{
+    width: 250px;
+    height: 50px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: 620px;
+    font-size: 1em;
+    font-weight: bold;
+    background-color: #333131;
+   border: none;
+   outline: none;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    
+}
+.btn:hover{
+    background-color: #252424;
+}
+.search-container button {
+    padding: 15px;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background-color: #555;
+}

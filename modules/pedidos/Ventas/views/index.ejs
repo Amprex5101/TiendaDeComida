@@ -1,0 +1,20 @@
+<div class="index-overlay"></div> 
+    <div class="index-header">
+        <nav class="navbar">
+           
+        </nav>
+    </div>
+    <div class="index-content">
+        <h1>Entregas de comida a domicilio</h1>
+        <div class="search-container">
+            <input type="text" placeholder="Ingresa la dirección de entrega">
+        </div>
+        <button id="btn-restaurantes" class="btn">Buscar Comida</button>
+    </div>
+    <script>
+        document.getElementById("btn-restaurantes").addEventListener("click", function() {
+            window.location.href = "/pedidos/Ventas/Restaurantes"; // Reemplaza `nombre_del_modulo` con el valor de params.route
+            console.log(`Ruta configurada: ${params.route}/Restaurantes`);
+
+        });
+    </script>
