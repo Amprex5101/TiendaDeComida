@@ -40,7 +40,7 @@
     background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro con opacidad */
     z-index: -1;
 }
-h1{
+.titulo-Pedidos{
     margin-left:278px;
 }
 .search-container {
@@ -65,7 +65,7 @@ h1{
     
   
 }
-.btn{
+.btn-pedidos{
     width: 250px;
     height: 50px;
     border-radius: 5px;
@@ -81,7 +81,7 @@ h1{
     transition: background-color 0.3s;
     
 }
-.btn:hover{
+.btn-pedidos:hover{
     background-color: #252424;
 }
 .search-container button {
