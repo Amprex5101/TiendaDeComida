@@ -1,44 +1,38 @@
 <!-- Navbar con Bootstrap -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Mi Aplicación</a>
+<nav class="navbar navbar-expand-lg bg-white">
+    <a class="logo navbar-brand" href="/">Mi Entrega</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-      <% if (user) { %>
-        <% if (modules) { %>
-          <% modules.forEach(module => { %>
-          <%- include(`../../modules/${module}/menu.ejs`) %>
-          <% }); %>
-        <% } %>
-      <% } %>
-      </ul>
+    <input type="text" class="search-bar" placeholder="Entrega a domicilio">
       <ul class="navbar-nav ml-auto">
+        <nav class="nav-links">
+
+        
         <% if (user) { %>
+            <a href="#">Recoger</a>
+            <a href="#">Ofertas</a>     
           <!-- Menú del Usuario Autenticado cargado a la derecha -->
-          <li class="nav-item dropdown d-flex align-items-center">
             <img src="/uploads/<%= user.profileImage ? user.profileImage : '/images/user-default.png' %>" alt="Imagen de Perfil" class="rounded-circle profile-thumbnail mr-2">
 
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= user.name %>
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" id="Texto">
               <a class="dropdown-item" href="/profile">Mi Perfil</a>
               <a class="dropdown-item" href="/about">Acerca de</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/auth/logout">Cerrar Sesión</a>
             </div>
-          </li>
+
         <% } else { %>
-          <!-- Mostrar enlaces de Registro y Login si el usuario no está autenticado -->
-          <li class="nav-item">
-            <a class="nav-link" href="/auth/register" >Registrar</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/auth/login" >Login</a>
-          </li>
+            <a href="#">Recoger</a>
+            <a href="#">Ofertas</a>          
+            <a href="/auth/register" id="Texto">Registrar</a>
+            <a href="/auth/login" id="Texto">Login</a>
         <% } %>
+        </nav>
       </ul>
     </div>
 </nav>
