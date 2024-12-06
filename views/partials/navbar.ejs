@@ -8,13 +8,12 @@
     <input type="text" class="search-bar" placeholder="Entrega a domicilio">
       <ul class="navbar-nav ml-auto">
         <nav class="nav-links">
-
-        
-        <% if (user) { %>
             <a href="#">Recoger</a>
-            <a href="#">Ofertas</a>     
+            <a href="#">Ofertas</a>   
+        
+        <% if (user) { %> 
           <!-- Menú del Usuario Autenticado cargado a la derecha -->
-            <img src="/uploads/<%= user.profileImage ? user.profileImage : '/images/user-default.png' %>" alt="Imagen de Perfil" class="rounded-circle profile-thumbnail mr-2">
+            <img src="/uploads/<%= user.profileImage ? user.profileImage : '/images/user-default.png' %>" class="rounded-circle profile-thumbnail mr-2">
 
             <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= user.name %>
@@ -27,8 +26,7 @@
             </div>
 
         <% } else { %>
-            <a href="#">Recoger</a>
-            <a href="#">Ofertas</a>          
+       
             <a href="/auth/register" id="Texto">Registrar</a>
             <a href="/auth/login" id="Texto">Login</a>
         <% } %>
