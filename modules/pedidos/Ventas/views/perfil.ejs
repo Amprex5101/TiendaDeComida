@@ -1,0 +1,34 @@
+<div class="profile-container">
+    <div class="view-mode">
+        <img src="/uploads/default-profile.png" alt="Imagen de perfil" class="profile-image">
+        <div class="profile-name" id="nameView">Nombre del usuario</div>
+        <div class="profile-job">Usuario estrella</div>
+        <div class="button-container">
+            <button class="button" onclick="toggleEditMode()">Editar Perfil</button>
+           
+        </div>
+    </div>
+
+    <form action="/profile/update" method="POST" enctype="multipart/form-data" class="edit-mode" id="editForm">
+        <div class="text-center">
+            <label for="profileImage">
+                <img src="/uploads/default-profile.png" alt="Imagen de perfil" class="profile-image" id="profilePreview">
+            </label>
+            <input type="file" id="profileImage" name="profileImage" class="d-none" accept="image/*" onchange="previewImage(event)">
+        </div>
+
+        <div class="mb-3">
+            <label for="name">Nombre</label>
+            <input type="text" id="name" name="name" placeholder="Ingresa tu nombre" required>
+        </div>
+
+        <div class="text-center">
+            <div class="button-container">
+                <button type="submit" class="button">Guardar Cambios</button>
+                <button type="button" class="button" onclick="toggleEditMode()">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="/modules/pedidos/Ventas/JS/perfil.js"></script>

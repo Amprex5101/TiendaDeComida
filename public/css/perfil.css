@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.profile-container {
+    width: 100%;
+    max-width: 500px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 50px 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #007bff;
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-name {
+    font-size: 1.7em;
+    font-weight: bold;
+    color: #333;
+    margin-top: 60px; /* Para que el nombre quede centrado bajo la imagen */
+}
+
+.profile-job {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.button {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 48%;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.button:active {
+    background-color: #00408d;
+}
+
+.edit-mode {
+    display: none;
+}
+
+.edit-mode input[type="text"],
+.edit-mode input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+}
+
+.edit-mode input[type="file"] {
+    padding: 5px;
+}
+
+.edit-mode button {
+    padding: 12px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    width: 48%;
+    margin-top: 10px;
+}
+
+.edit-mode button:last-child {
+    background-color: #dc3545;
+}
+
+.edit-mode .profile-image {
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.d-none {
+    display: none;
+}
+
+.edit-mode input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.edit-mode input[type="text"]::placeholder {
+    color: #aaa;
+}
+
+.edit-mode label {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 8px;
+    text-align: left;
+    display: block;
+}
