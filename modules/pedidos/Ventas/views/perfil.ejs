@@ -1,8 +1,12 @@
+<link href="/css/perfil.css" rel="stylesheet"> 
+<div class="contenedor">
+
+
 <div class="profile-container">
     <div class="view-mode">
-        <img src="/uploads/default-profile.png" alt="Imagen de perfil" class="profile-image">
+        <img src="/uploads/<%= user.profileImage ? user.profileImage : '/images/user-default.png' %>" alt="Imagen de perfil" class="profile-image">
         <div class="profile-name" id="nameView">Nombre del usuario</div>
-        <div class="profile-job">Usuario estrella</div>
+        <div class="profile-job"><%= user.name %></div>
         <div class="button-container">
             <button class="button" onclick="toggleEditMode()">Editar Perfil</button>
            
@@ -12,13 +16,13 @@
     <form action="/profile/update" method="POST" enctype="multipart/form-data" class="edit-mode" id="editForm">
         <div class="text-center">
             <label for="profileImage">
-                <img src="/uploads/default-profile.png" alt="Imagen de perfil" class="profile-image" id="profilePreview">
+                <img src="/uploads/<%= user.profileImage ? user.profileImage : '/images/user-default.png' %>" alt="Imagen de perfil" class="profile-image" id="profilePreview">
             </label>
             <input type="file" id="profileImage" name="profileImage" class="d-none" accept="image/*" onchange="previewImage(event)">
         </div>
 
         <div class="mb-3">
-            <label for="name">Nombre</label>
+            <label for="name"><%= user.name %></label>
             <input type="text" id="name" name="name" placeholder="Ingresa tu nombre" required>
         </div>
 
@@ -30,5 +34,5 @@
         </div>
     </form>
 </div>
-
-<script src="/modules/pedidos/Ventas/JS/perfil.js"></script>
+</div>
+<script src="/JS/perfil.js"></script>

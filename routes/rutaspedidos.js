@@ -14,6 +14,10 @@ module.exports = function(router, params) {
         mainController.showPedidos(req, res, params.moduleName, params.view_Menu1, params.model, params.title).catch(next);
     });
 
+    router.get(`${params.route}/perfil`, ensureAuthenticated, (req, res, next) => {  
+        mainController.showPedidos(req, res, params.moduleName, params.view_perfil, params.model, params.title).catch(next);
+    });
+
     // Ruta para la vista "Restaurantes"
     router.get(`${params.route}/Restaurantes`, ensureAuthenticated, (req, res, next) => {  
         mainController.showPedidos(req, res, params.moduleName, params.view_Restaurantes, params.model, params.title).catch(next);

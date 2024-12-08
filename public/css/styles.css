@@ -12,6 +12,16 @@
   background-image: url(https://wallpapers.com/images/hd/food-table-1j6ik0elenqlwh4k.jpg);
   background-size: cover;
 }
+
+.navbar-nav {
+  flex-direction: row;
+}
+.nav-item .dropdown-menu {
+  right: 0; /* Asegura que el menú desplegable se alinee a la derecha       
+  */
+  left: auto;
+}
+
 .body-bd:before {
   content: "";
   position: absolute;
@@ -103,14 +113,6 @@
     cursor: pointer;
   }
   
-  .profile-thumbnail,
-  .profile-img {
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-
   .loading-animation {
     position: fixed;
     top: 50%;

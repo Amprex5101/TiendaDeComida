@@ -11,6 +11,7 @@ module.exports = function(app) {
         moduleName: 'pedidos/Ventas', // Especifica correctamente el módulo de Ventas
         view_index: 'index',         // Vista inicial
         view_Menu1: 'Menu1',         // Vista para Menu1
+        view_perfil: 'perfil',      //Vista para Perfil
         view_Restaurantes: 'Restaurantes', // Vista para Restaurantes
         model: Ventas,               // Modelo de Ventas
         route: '/Ventas',            // Ruta base para este módulo

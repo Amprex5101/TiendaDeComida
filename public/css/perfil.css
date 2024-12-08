@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -8,11 +9,12 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f7f7f7;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+    flex-direction: column;
 
+}
+.contenedor{
+    
+}
 .profile-container {
     width: 100%;
     max-width: 500px;

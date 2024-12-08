@@ -1,19 +1,18 @@
-
-
+<link href="/css/Restaurante.css" rel="stylesheet">
 
 <!-- Sección de Promociones -->
 <section class="restaurante-promociones">
     <div class="promo promo-1">
-      <button data-target="Comida-Italiana">Comida Italiana</button>
+        <button data-target="Comida-Italiana">Comida Italiana</button>
     </div>
     <div class="promo promo-2">
-      <button data-target="comida-rapida">Comida rápida</button>
+        <button data-target="comida-rapida">Comida rápida</button>
     </div>
     <div class="promo promo-3">
-      <button data-target="comida-asiatica">Comida Asiatica</button>
+        <button data-target="comida-asiatica">Comida Asiatica</button>
     </div>
     <div class="promo promo-3">
-      <button data-target="comida-vegana">Comida Vegana</button>
+        <button data-target="comida-vegana">Comida Vegana</button>
     </div>
     <div class="promo promo-3">
         <button data-target="favoritos">Tus favoritos</button>
@@ -24,7 +23,7 @@
 <section class="recommendaciones">
     <h2 id="favoritos">Tus favoritos</h2>
     <div class="recommendaciones-grid">
-        <div class="restaurante-card card1">
+        <div class="restaurante-card">
             <img src="/images/Comida1.jpg" alt="Comida 1">
             <p>Pollo Parrilla Regia</p>
             <span>Costo de envío: $17 MXN</span>
@@ -49,7 +48,7 @@
 <section class="recommendaciones">
     <h2 id="Comida-Italiana">Comida Italiana</h2>
     <div class="recommendaciones-grid">
-        <div class="restaurante-card card1">
+        <div class="restaurante-card">
             <img src="/images/Comida1.jpg" alt="Comida 1">
             <p>Italianis</p>
             <span>Costo de envío: $17 MXN</span>
@@ -74,7 +73,7 @@
 <section class="recommendaciones">
     <h2 id="comida-rapida">Comida Rápida</h2>
     <div class="recommendaciones-grid">
-        <div class="restaurante-card card1">
+        <div class="restaurante-card">
             <img src="/images/Comida1.jpg" alt="Comida 1">
             <p>Italianis</p>
             <span>Costo de envío: $17 MXN</span>
@@ -99,7 +98,7 @@
 <section class="recommendaciones">
     <h2 id="comida-asiatica">Comida Asiatica</h2>
     <div class="recommendaciones-grid">
-        <div class="restaurante-card card1">
+        <div class="restaurante-card">
             <img src="/images/Comida1.jpg" alt="Comida 1">
             <p>Italianis</p>
             <span>Costo de envío: $17 MXN</span>
@@ -124,7 +123,7 @@
 <section class="recommendaciones">
     <h2 id="comida-vegana">Comida Vegana</h2>
     <div class="recommendaciones-grid">
-        <div class="restaurante-card card1">
+        <div class="restaurante-card">
             <img src="/images/Comida1.jpg" alt="Comida 1">
             <p>Italianis</p>
             <span>Costo de envío: $17 MXN</span>
@@ -147,19 +146,22 @@
     </div>
 </section>
 <script>
-    document.querySelector(".card1").addEventListener("click", function(event) {
-        // Prevenir la propagación del clic para evitar que el botón intercepte el evento
-        event.stopPropagation();
-        window.location.href = "/pedidos/Ventas/Menu1";
+    // Agregar evento de clic a todas las tarjetas
+    document.querySelectorAll(".restaurante-card").forEach(card => {
+        card.addEventListener("click", function () {
+            window.location.href = "/pedidos/Ventas/Menu1"; // Redirigir a la página deseada
+        });
     });
-    document.querySelectorAll('.restaurante-promociones button').forEach(button => {
-    button.addEventListener('click', function() {
-      const targetId = this.getAttribute('data-target'); // Obtener el ID del destino
-      const targetElement = document.getElementById(targetId); // Seleccionar el elemento
 
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Desplazamiento suave
-      }
+    // Agregar evento de clic a los botones de promociones
+    document.querySelectorAll('.restaurante-promociones button').forEach(button => {
+        button.addEventListener('click', function () {
+            const targetId = this.getAttribute('data-target'); // Obtener el ID del destino
+            const targetElement = document.getElementById(targetId); // Seleccionar el elemento correspondiente
+
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Desplazamiento suave al destino
+            }
+        });
     });
-  });
 </script>

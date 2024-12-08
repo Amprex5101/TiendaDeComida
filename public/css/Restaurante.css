@@ -24,28 +24,6 @@
     cursor: pointer;
 }
 
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-}
-
-.search-bar {
-    margin: 0 20px;
-    padding: 10px;
-    border-radius: 20px;
-    border: 1px solid #ddd;
-    flex: 1;
-}
-
-.nav-links a {
-    margin-left: 15px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
-
 .categorias {
     display: flex;
     overflow-x: auto;
