@@ -1,4 +1,15 @@
 // index.js
+
+/*
+NOMBRE DE INTEGRANTES DEL EQUIPO
+
+ANGEL VENEGAS HERNÁNDEZ
+MONSERRAT NARANJO MERCADO
+
+SEPTIMO SEMESTRE DE INGENIERIA EN SISTEMAS COMPUTACIONALES
+
+*/
+
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
