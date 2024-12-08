@@ -7,14 +7,19 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f7f7f7;
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
 
 }
-.contenedor{
-    
+.contenedor {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 90vh;
+    background-color: #f7f7f7; 
 }
+
 .profile-container {
     width: 100%;
     max-width: 500px;
@@ -31,7 +36,7 @@ body {
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #007bff;
+    border: 3px solid #d9d9d9;
     position: absolute;
     top: -60px;
     left: 50%;
@@ -50,8 +55,12 @@ body {
     font-size: 1.1em;
     color: #666;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
-
+.edit-nombre{
+    flex-direction: column;
+    -ms-flex-align: center;
+}
 .button-container {
     display: flex;
     justify-content: space-between;
@@ -61,7 +70,7 @@ body {
 
 .button {
     padding: 12px 20px;
-    background-color: #007bff;
+    
     color: white;
     border: none;
     border-radius: 8px;
@@ -70,9 +79,23 @@ body {
     transition: background-color 0.3s ease;
     width: 48%;
 }
-
+.button-edit{
+    padding: 12px 20px;
+    background-color: #ff8800;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 48%;
+    margin-left: 115px;
+}
+.button-edit:hover {
+    background-color: #a95e08;
+}
 .button:hover {
-    background-color: #0056b3;
+    background-color: #02510a;
 }
 
 .button:active {

@@ -5,10 +5,10 @@
 <div class="profile-container">
     <div class="view-mode">
         <img src="/uploads/<%= user.profileImage ? user.profileImage : '/images/user-default.png' %>" alt="Imagen de perfil" class="profile-image">
-        <div class="profile-name" id="nameView">Nombre del usuario</div>
+       
         <div class="profile-job"><%= user.name %></div>
         <div class="button-container">
-            <button class="button" onclick="toggleEditMode()">Editar Perfil</button>
+            <button class="button-edit" onclick="toggleEditMode()">Editar Perfil</button>
            
         </div>
     </div>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="name"><%= user.name %></label>
+            <label class="edit-nombre" for="name"><%= user.name %></label>
             <input type="text" id="name" name="name" placeholder="Ingresa tu nombre" required>
         </div>
 
