@@ -10,7 +10,7 @@ exports.ensureAuthenticated = (req, res, next) => {
   };
   
   // Middleware para proteger rutas: verificar si el usuario es administrador
-exports.ensureAdmin = (req, res, next) => {
+exports.isAdmin = (req, res, next) => {
     if (req.isAuthenticated() && req.user.role === 'admin') {
       return next(); // El usuario es administrador, continuar
     }

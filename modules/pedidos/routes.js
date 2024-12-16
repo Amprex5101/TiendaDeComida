@@ -13,6 +13,8 @@ module.exports = function(app) {
         view_Menu1: 'Menu1',         // Vista para Menu1
         view_perfil: 'perfil',      //Vista para Perfil
         view_Restaurantes: 'Restaurantes', // Vista para Restaurantes
+        view_recomendaciones: 'recomendaciones', // Vista para recomendaciones
+        view_modificaciones: 'modificaciones', // Vista para modificaciones
         model: Ventas,               // Modelo de Ventas
         route: '/Ventas',            // Ruta base para este módulo
         title: 'Ventas'              // Título para este módulo

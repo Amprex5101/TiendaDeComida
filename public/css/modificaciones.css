@@ -1,0 +1,76 @@
+.seccion-recomendacion {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.seccion-header {
+    background: #f8f9fa;
+    padding: 15px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dee2e6;
+    position: relative;
+}
+
+.seccion-header:hover {
+    background: #e9ecef;
+}
+
+.seccion-content {
+    padding: 20px;
+    display: none;
+}
+
+.seccion-content.active {
+    display: block;
+}
+
+.producto-card {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.producto-imagen {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+.producto-info {
+    flex-grow: 1;
+}
+
+.producto-acciones {
+    display: flex;
+    gap: 10px;
+}
+
+.toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+.seccion-header .btn-danger {
+    position: absolute;
+    right: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.seccion-header .btn-danger:hover {
+    z-index: 1;
+}

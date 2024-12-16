@@ -1,0 +1,63 @@
+<link href="/css/form.css" rel="stylesheet">
+<link href="/css/recomendaciones.css" rel="stylesheet">
+<head>
+    <!-- Agregar SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<div class="container mt-4 mb-4">
+    <h2>Agregar nuevas recomendaciones</h2>
+    
+    <form id="recomendacionForm" action="/pedidos/Ventas/recomendaciones" method="POST" enctype="multipart/form-data">
+        <!-- Datos de la sección -->
+        <div class="form-group">
+            <label for="nombreSeccion">Nombre de Sección:</label>
+            <input type="text" class="form-control" id="nombreSeccion" name="nombreSeccion" required
+                   placeholder="Ejemplo: Comida Vegana" onchange="generarSeccionId(this.value)">
+        </div>
+
+        <div class="form-group">
+            <label for="seccionId">ID de Sección:</label>
+            <input type="text" class="form-control" id="seccionId" name="seccionId" required 
+                   readonly style="background-color: #e9ecef">
+        </div>
+
+        <!-- Restaurantes -->
+        <h4>Restaurantes</h4>
+        <div id="restaurantes-container">
+            <div class="restaurante-item border p-3 mb-3">
+                <div class="form-group">
+                    <label>Nombre de la comida:</label>
+                    <input type="text" class="form-control" name="restaurantes[0].nombre" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Costo de la comida:</label>
+                    <input type="number" class="form-control" name="restaurantes[0].costoEnvio" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Imagen de la comida:</label>
+                    <input type="file" class="form-control imagen-input" name="imagen" 
+                           accept="image/*" required 
+                           onchange="previsualizarImagen(this, 0)">
+                    <div class="mt-2">
+                        <img id="preview-0" src="#" alt="Vista previa" 
+                             style="max-width: 200px; max-height: 200px; display: none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button type="button" class="btn btn-secondary" onclick="agregarRestaurante()">Agregar Otra Comida 
+        </button>
+        
+        <button type="submit" class="btn btn-primary">Guardar Recomendación
+        </button>
+    </form>
+</div>
+
+<!-- Agregar referencia al archivo JS externo -->
+<script src="/JS/recomendaciones.js"></script>
+
+

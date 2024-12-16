@@ -18,94 +18,48 @@
   <aside class="menu-sidebar">
       <h3>Menú</h3>
       <ul>
-          <li>Artículos destacados</li>
-          <li>Estilos de Pollo</li>
-          <li>Puré de papa asado al carbón</li>
-          <li>Sopes (1 pieza grande)</li>
-          <li>Quesadillas (1 pieza grande)</li>
-          <li>Complementos</li>
-          <li>Extras</li>
-          <li>Postre</li>
-          <li>Bebidas</li>
+          <% if (typeof menu !== 'undefined' && menu && menu.length > 0) { %>
+              <% menu.forEach(seccion => { %>
+                  <li><a href="#<%= seccion.seccionId %>"><%= seccion.nombreSeccion %></a></li>
+              <% }); %>
+          <% } else { %>
+              <li>No hay secciones disponibles</li>
+          <% } %>
       </ul>
   </aside>
   
   <main class="contenido">
-      <div class="Articulos-dest">
-          <h2>Artículos destacados</h2>
-          <div class="card-grid">
-              <div class="card">
-                  <img src="/images/Frijolescharros.jpg" alt="Frijoles charros">
-                  <div class="card-info">
-                      <p>½ L. Frijoles charros</p>
-                      <span>$55.00</span>
+      <% if (typeof menu !== 'undefined' && menu && menu.length > 0) { %>
+          <% menu.forEach(seccion => { %>
+              <div class="<%= seccion.seccionId %>" id="<%= seccion.seccionId %>">
+                  <h2><%= seccion.nombreSeccion %></h2>
+                  <div class="card-grid">
+                      <% seccion.productos.forEach(producto => { %>
+                          <div class="card">
+                              <img src="/images/<%= producto.imagen %>" alt="<%= producto.nombre %>">
+                              <div class="card-info">
+                                  <p class="nombre-producto"><%= producto.nombre %></p>
+                                  <span class="precio-total">$<%= producto.precio.toFixed(2) %></span>
+                                  <span class="precio-base" style="display: none;"><%= producto.precio %></span>
+                              </div>
+                              <button class="add-button">+</button>
+                              <div class="agregar-carrito-container" style="display: none;">
+                                <button class="btn-agregar-carrito" 
+                                        onclick="mostrarDatosProducto(this)"
+                                        data-nombre="<%= producto.nombre %>"
+                                        data-precio="<%= producto.precio %>">
+                                    Agregar al carrito
+                                </button>
+                              </div>
+                          </div>
+                      <% }); %>
                   </div>
-                  <button class="add-button">+</button>
               </div>
-              <div class="card">
-                  <img src="/images/Pure.jpg" alt="Con queso">
-                  <div class="card-info">
-                      <p>Con queso</p>
-                      <span>$100.00</span>
-                  </div>
-                  <button class="add-button">+</button>
-              </div>
-              <div class="card">
-                  <img src="/images/Arroz.jpg" alt="Arroz">
-                  <div class="card-info">
-                      <p>½ L. Arroz</p>
-                      <span>$45.00</span>
-                  </div>
-                  <button class="add-button">+</button>
-              </div>
-              <div class="card">
-                  <img src="/images/Ensalada.jpg" alt="Ensalada mixta">
-                  <div class="card-info">
-                      <p>Ensalada mixta</p>
-                      <span>$48.00</span>
-                  </div>
-                  <button class="add-button">+</button>
-              </div>
-          </div>
-      </div>
-
-      <div class="Estilos-pollo">
-          <h2 class="titulo">Estilos de Pollo</h2>
-          <div class="card-grid">
-              <div class="card">
-                  <img src="/images/polloparrilla.jpg" alt="parrilla">
-                  <div class="card-info">
-                      <p>Pollo a la parrilla</p>
-                      <span>$110.00</span>
-                  </div>
-                  <button class="add-button">+</button>
-              </div>
-              <div class="card">
-                  <img src="/images/polloasado.jpg" alt="Pollo asado">
-                  <div class="card-info">
-                      <p>Pollo Asado</p>
-                      <span>$150.00</span>
-                  </div>
-                  <button class="add-button">+</button>
-              </div>
-              <div class="card">
-                  <img src="/images/pollosalteado.jpg" alt="Salteado">
-                  <div class="card-info">
-                      <p>Pollo salteado</p>
-                      <span>$80.00</span>
-                  </div>
-                  <button class="add-button">+</button>
-              </div>
-              <div class="card">
-                  <img src="/images/polloteriyaki.jpg" alt="Pollo Teriyaki">
-                  <div class="card-info">
-                      <p>Pollo estilo teriyaki</p>
-                      <span>$90.00</span>
-                  </div>
-                  <button class="add-button">+</button>
-              </div>
-          </div>
-      </div>
+          <% }); %>
+      <% } else { %>
+          <p>No hay productos disponibles</p>
+      <% } %>
   </main>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/JS/Menu.js"></script>

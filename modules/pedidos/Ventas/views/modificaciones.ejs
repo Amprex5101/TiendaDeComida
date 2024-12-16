@@ -1,0 +1,157 @@
+<link href="/css/form.css" rel="stylesheet">
+<link href="/css/modificaciones.css" rel="stylesheet">
+
+<head>
+    <!-- Agregar SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<div class="container mt-4 mb-4">
+    <h2>Modificar Recomendaciones</h2>
+    
+    <div id="secciones-container">
+        <% if (recomendaciones && recomendaciones.length > 0) { %>
+            <% recomendaciones.forEach(seccion => { %>
+                <div class="seccion-container">
+                    <div class="seccion-header" onclick="toggleSeccion(this)">
+                        <h3><%= seccion.nombreSeccion %></h3>
+                        <span class="toggle-icon">▼</span>
+                        <button class="btn btn-danger btn-sm float-right me-3" 
+                                onclick="event.stopPropagation(); eliminarSeccion('<%= seccion.seccionId %>')">
+                            Eliminar Sección
+                        </button>
+                    </div>
+                    <div class="seccion-content">
+                        <div class="mb-3">
+                            <button class="btn btn-success" 
+                                    onclick="mostrarFormularioNuevoProducto('<%= seccion.seccionId %>', '<%= seccion.nombreSeccion %>')">
+                                Agregar Nuevo Producto
+                            </button>
+                        </div>
+                        <% if (seccion.restaurantes && seccion.restaurantes.length > 0) { %>
+                            <% seccion.restaurantes.forEach((producto, index) => { %>
+                                <div class="producto-card">
+                                    <img src="/images/<%= producto.imagen %>" 
+                                         alt="<%= producto.nombre %>" 
+                                         class="producto-imagen">
+                                    <div class="producto-info">
+                                        <h4><%= producto.nombre %></h4>
+                                        <p>Precio: $<%= producto.costoEnvio %> MXN</p>
+                                    </div>
+                                    <div class="producto-acciones">
+                                        <button class="btn btn-primary btn-sm" 
+                                                onclick="editarProducto('<%= seccion.seccionId %>', '<%= index %>')">
+                                            Editar
+                                        </button>
+                                        <button class="btn btn-danger btn-sm" 
+                                                onclick="eliminarProducto('<%= seccion.seccionId %>', '<%= index %>')">
+                                            Eliminar
+                                        </button>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        <% } else { %>
+                            <p>No hay productos en esta sección</p>
+                        <% } %>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No hay secciones de recomendaciones disponibles</p>
+        <% } %>
+    </div>
+</div>
+
+<!-- Modal para nuevo producto -->
+<div class="modal fade" id="nuevoProductoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Nuevo Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formNuevoProducto" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" id="seccionId" name="seccionId">
+                    <input type="hidden" id="nombreSeccion" name="nombreSeccion">
+                    
+                    <div class="form-group">
+                        <label>Nombre del Producto:</label>
+                        <input type="text" class="form-control" name="nombre" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Precio:</label>
+                        <input type="number" class="form-control" name="costoEnvio" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Imagen:</label>
+                        <input type="file" class="form-control" name="imagen" accept="image/*" required>
+                        <div class="mt-2">
+                            <img id="preview-imagen" src="#" alt="Vista previa" 
+                                 style="max-width: 200px; max-height: 200px; display: none;">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para editar producto -->
+<div class="modal fade" id="editarProductoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formEditarProducto" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" id="edit_seccionId" name="seccionId">
+                    <input type="hidden" id="edit_productoId" name="productoId">
+                    
+                    <div class="form-group">
+                        <label>Nombre del Producto:</label>
+                        <input type="text" class="form-control" id="edit_nombre" name="nombre" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Precio:</label>
+                        <input type="number" class="form-control" id="edit_costoEnvio" name="costoEnvio" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Imagen:</label>
+                        <input type="file" class="form-control" name="imagen" accept="image/*">
+                        <div class="mt-2">
+                            <img id="edit_preview-imagen" src="#" alt="Vista previa" 
+                                 style="max-width: 200px; max-height: 200px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Actualizar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Esta variable necesita estar en el EJS para acceder a los datos del servidor
+    const recomendaciones = JSON.parse('<%- JSON.stringify(recomendaciones) %>');
+</script>
+
+<!-- Agregar referencia al archivo JS externo -->
+<script src="/JS/modificaciones.js"></script>

@@ -1,0 +1,12 @@
+/* Estilos para la previsualización de la imagen */
+img[id^="preview-"] {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+img[id^="preview-"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}

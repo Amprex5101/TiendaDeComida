@@ -11,7 +11,7 @@
       <ul class="navbar-nav ml-auto">
         <nav class="nav-links">
             <a href="#">Recoger</a>
-            <a href="#">🛒</a>   
+            <a href="/pedidos/Ventas/carrito">🛒</a>
         
         <% if (user) { %> 
           <!-- Menú del Usuario Autenticado cargado a la derecha -->
@@ -23,6 +23,10 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" id="Texto">
               <a class="dropdown-item" href="/pedidos/Ventas/perfil">Mi Perfil</a>
               <a class="dropdown-item" href="/about">Acerca de</a>
+              <% if (user.role === 'admin') { %>
+                <a class="dropdown-item" href="/pedidos/Ventas/recomendaciones">Agregar Recomendaciones</a>
+                <a class="dropdown-item" href="/pedidos/Ventas/modificaciones">Modificaciones de Recomendaciones</a>
+              <% } %>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/auth/logout">Cerrar Sesión</a>
             </div>
