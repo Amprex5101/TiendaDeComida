@@ -11,7 +11,10 @@
       <ul class="navbar-nav ml-auto">
         <nav class="nav-links">
             <a href="#">Recoger</a>
-            <a href="/pedidos/Ventas/carrito">🛒</a>
+            <a href="/pedidos/Ventas/carrito" class="carrito-icon">
+                🛒
+                <span class="contador-carrito" id="contador-carrito">0</span>
+            </a>
         
         <% if (user) { %> 
           <!-- Menú del Usuario Autenticado cargado a la derecha -->
