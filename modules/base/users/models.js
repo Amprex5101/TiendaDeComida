@@ -4,11 +4,15 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   date: { type: Date, default: Date.now },
-  role: { type: String, default: 'user' },
+  role: { type: String, enum: ['user', 'admin'], default: 'user' },
   profileImage: {
-    type: String, // Almacena la ruta de la imagen
-    default: 'https://via.placeholder.com/100', // Puedes tener una imagen predeterminada
+    type: String,
+    default: 'default-profile.png'
   },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema); 

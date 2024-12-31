@@ -26,3 +26,20 @@
   object-fit: cover;
   border-radius: 50%;
 }
+.carrito-icon {
+    position: relative;
+    text-decoration: none;
+}
+
+.contador-carrito {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ff4444;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    min-width: 15px;
+    text-align: center;
+}

@@ -5,7 +5,7 @@ const path = require('path');
 // Configuración de almacenamiento para Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../uploads')); 
+    cb(null, path.join(__dirname, '../public/images')); 
   },
   filename: (req, file, cb) => {
     // Asignar un nombre único a la imagen para evitar conflictos

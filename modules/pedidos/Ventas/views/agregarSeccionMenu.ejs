@@ -1,0 +1,61 @@
+<link href="/css/form.css" rel="stylesheet">
+<link href="/css/recomendaciones.css" rel="stylesheet">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<div class="container mt-4 mb-4">
+    <h2>Agregar nueva sección al menú</h2>
+    
+    <form id="menuSeccionForm" action="/pedidos/Ventas/agregarSeccionMenu" method="POST" enctype="multipart/form-data">
+        <!-- Datos de la sección -->
+        <div class="form-group">
+            <label for="nombreSeccion">Nombre de Sección:</label>
+            <input type="text" class="form-control" id="nombreSeccion" name="nombreSeccion" required
+                   placeholder="Ejemplo: Platillos Principales" onchange="generarSeccionId(this.value)">
+        </div>
+
+        <div class="form-group">
+            <label for="seccionId">ID de Sección:</label>
+            <input type="text" class="form-control" id="seccionId" name="seccionId" required 
+                   readonly style="background-color: #e9ecef">
+        </div>
+
+        <!-- Productos -->
+        <h4>Productos</h4>
+        <div id="productos-container">
+            <div class="producto-item border p-3 mb-3">
+                <div class="form-group">
+                    <label>Nombre del Producto:</label>
+                    <input type="text" class="form-control" name="productos[0][nombre]" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Precio:</label>
+                    <input type="number" class="form-control" name="productos[0][precio]" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Imagen del Producto:</label>
+                    <input type="file" class="form-control imagen-input" name="imagenes" 
+                           accept="image/*" required 
+                           onchange="previsualizarImagen(this, 0)">
+                    <div class="mt-2">
+                        <img id="preview-0" src="#" alt="Vista previa" 
+                             style="max-width: 200px; max-height: 200px; display: none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button type="button" class="btn btn-secondary" onclick="agregarProducto()">
+            Agregar Otro Producto
+        </button>
+        
+        <button type="submit" class="btn btn-primary">
+            Guardar Sección
+        </button>
+    </form>
+</div>
+
+<script src="/JS/agregarSeccionMenu.js"></script>

@@ -1,0 +1,35 @@
+<link href="/css/carrito.css" rel="stylesheet">
+<!-- Agregar SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="carrito-container">
+    <h1>Tu Carrito de Compras</h1>
+    
+    <div class="lista-productos" id="lista-productos">
+        <!-- Aquí se cargarán los productos dinámicamente -->
+    </div>
+
+    <div class="resumen-pedido">
+        <h3>Resumen del Pedido</h3>
+        <div class="subtotal">
+            <span>Subtotal:</span>
+            <span id="subtotal">$0.00</span>
+        </div>
+        <div class="costo-envio">
+            <span>Costo de envío:</span>
+            <span>$17.00</span>
+        </div>
+        <div class="total">
+            <span>Total:</span>
+            <span id="total">$0.00</span>
+        </div>
+        <button id="btn-realizar-pedido" class="btn-realizar-pedido">
+            Realizar Pedido
+        </button>
+    </div>
+</div>
+
+<!-- jQuery (necesario para algunas funcionalidades) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/JS/carrito.js"></script>
+

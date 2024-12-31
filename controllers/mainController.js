@@ -1,5 +1,12 @@
+const bcrypt = require('bcryptjs');
+
 // Función reutilizable para obtener resultados paginados y filtrados
 exports.getItemsPaginated = async(req, res, moduleName, view, Model, title) => {
+
+    if (req.user.role !== 'admin') {
+      req.flash('error_msg', 'Acceso denegado');
+      return res.redirect('/');
+    }
 
     const searchFields = Object.keys(Model.schema.paths).filter(path => {
       const schemaType = Model.schema.paths[path];
@@ -28,7 +35,6 @@ exports.getItemsPaginated = async(req, res, moduleName, view, Model, title) => {
                 [field]: { $regex: searchQuery, $options: 'i' } }))
           } 
         : {};
-          console.log(`searchRegex ${searchRegex}`);
       // Obtener los resultados con paginación y búsqueda
       results = await Model.find(searchRegex)
         .skip(skip)
@@ -43,7 +49,6 @@ exports.getItemsPaginated = async(req, res, moduleName, view, Model, title) => {
       // Asegurarse de que la página no exceda el número total de páginas
       if (page > totalPages) page = totalPages;
   
-      console.log(`Modulos xx: ${modules}`);
       // Renderizar la vista, pasando los resultados, búsqueda y paginación
       res.renderModuleView(moduleName, view, {
         results,
@@ -85,53 +90,94 @@ exports.showCreateItemForm = async (req, res, moduleName, view, Model, typeform)
 
 exports.createItem = async (req, res, moduleName, Model) => {
     try {
+        const { name, email, password, password2, role } = req.body;
+        let errors = [];
 
-      const fields = Object.keys(Model.schema.paths).filter(path => !path.startsWith('_'));
-
-      let data = {};
-      fields.forEach(field => {
-        if (req.body[field] !== undefined) {
-          data[field] = req.body[field];
+        // Validaciones
+        if (!name || !email || !password || !password2) {
+            errors.push({ msg: 'Por favor llena todos los campos' });
         }
-      });
 
-      if (req.file) {
-        data.profileImage = req.file.filename; // Guardar la nueva imagen si se carga
-      }
+        if (password !== password2) {
+            errors.push({ msg: 'Las contraseñas no coinciden' });
+        }
 
-      const newItem = new Model(data); // Crear un nuevo usuario
-      await newItem.save(); // Guardar el usuario en la base de datos
-      req.flash('success_msg', `${Model.modelName} creado correctamente.`);
-      res.redirect(`/${moduleName}/list`); // edirigir a la lista de items
+        if (password.length < 6) {
+            errors.push({ msg: 'La contraseña debe tener al menos 6 caracteres' });
+        }
+
+        if (errors.length > 0) {
+            req.flash('error_msg', errors.map(error => error.msg).join('. '));
+            return res.redirect(`/${moduleName}/list`);
+        }
+
+        // Verificar si el email ya existe
+        const existingUser = await Model.findOne({ email });
+        if (existingUser) {
+            req.flash('error_msg', 'El correo electrónico ya está registrado');
+            return res.redirect(`/${moduleName}/list`);
+        }
+
+        // Preparar los datos del usuario
+        const fields = Object.keys(Model.schema.paths).filter(path => !path.startsWith('_'));
+        let data = {};
+        fields.forEach(field => {
+            if (req.body[field] !== undefined && field !== 'password') {
+                data[field] = req.body[field];
+            }
+        });
+
+        // Establecer imagen por defecto si no se subió una nueva
+        data.profileImage = req.file ? req.file.filename : 'user-default.png';
+
+        // Encriptar la contraseña
+        const salt = await bcrypt.genSalt(10);
+        data.password = await bcrypt.hash(password, salt);
+
+        // Crear y guardar el nuevo usuario
+        const newItem = new Model(data);
+        await newItem.save();
+
+        req.flash('success_msg', `${Model.modelName} creado correctamente`);
+        res.redirect(`/${moduleName}/list`);
+
     } catch (err) {
-      console.error(`Error al crear ${Model.modelName}:`, err);
-      req.flash('error_msg', `Error al crear el ${Model.modelName}.`);
-      res.redirect(`/${moduleName}/form/new`);
+        console.error(`Error al crear ${Model.modelName}:`, err);
+        req.flash('error_msg', `Error al crear el ${Model.modelName}`);
+        res.redirect(`/${moduleName}/list`);
     }
 };
 
 exports.updateItem = async (req, res, moduleName, Model) => {
-    const fields = Object.keys(Model.schema.paths).filter(path => !path.startsWith('_'));
-
-    let data = {};
-    fields.forEach(field => {
-      if (req.body[field] !== undefined) {
-        data[field] = req.body[field];
-      }
-    });
-  
-    if (req.file) {
-      data.profileImage = req.file.filename; // Guardar la nueva imagen si se carga
-    }
-
     try {
-      await Model.findByIdAndUpdate(req.params.id, data); // Actualizar el usuario
-      req.flash('success_msg', `${Model.modelName} actualizado correctamente.`);
-      res.redirect(`/${moduleName}/list`);
+        const fields = Object.keys(Model.schema.paths).filter(path => !path.startsWith('_'));
+        let data = {};
+        
+        // Copiar campos excepto la contraseña
+        fields.forEach(field => {
+            if (req.body[field] !== undefined && field !== 'password') {
+                data[field] = req.body[field];
+            }
+        });
+
+        // Manejar la imagen si se subió una nueva
+        if (req.file) {
+            data.profileImage = req.file.filename;
+        }
+
+        // Si se proporcionó una nueva contraseña, encriptarla
+        if (req.body.password && req.body.password.trim() !== '') {
+            const salt = await bcrypt.genSalt(10);
+            data.password = await bcrypt.hash(req.body.password, salt);
+        }
+
+        await Model.findByIdAndUpdate(req.params.id, data);
+        req.flash('success_msg', `${Model.modelName} actualizado correctamente`);
+        res.redirect(`/${moduleName}/list`);
     } catch (err) {
-      console.error(`Error al actualizar ${Model.modelName}:`, err);
-      req.flash('error_msg', `Error al actualizar el ${Model.modelName}.`);
-      res.redirect(`/${moduleName}/form/edit/${req.params.id}`);
+        console.error(`Error al actualizar ${Model.modelName}:`, err);
+        req.flash('error_msg', `Error al actualizar el ${Model.modelName}`);
+        res.redirect(`/${moduleName}/form/edit/${req.params.id}`);
     }
 };
 
@@ -183,3 +229,17 @@ exports.showPedidos = async (req, res, moduleName, view, Model, title) => {
     });
     // Renderiza el formulario de edición
 };
+
+exports.showProductos = async(req, res, moduleName, view, Model, title) => {
+  if (req.user.role !== 'admin') {
+    req.flash('error_msg', 'Acceso denegado');
+    return res.redirect('/');
+  }
+  res.renderModuleView(moduleName, view, {
+    title: title,
+    moduleName: moduleName,
+    user: req.user,  // Usuario autenticado
+    modules: req.modules
+  });
+
+}

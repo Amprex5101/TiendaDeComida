@@ -54,14 +54,13 @@ exports.createRecomendacion = async (req, res, moduleName) => {
         });
 
         await nuevaRecomendacion.save();
-        
         console.log('Recomendación guardada:', nuevaRecomendacion);
         
-        res.redirect(`/${moduleName}/recomendaciones?success=true`);
+        return { success: true }; // Retornamos un objeto indicando éxito
     } catch (error) {
         console.error('Error al guardar la recomendación:', error);
         console.error('Detalles del error:', error.message);
-        res.redirect(`/${moduleName}/recomendaciones?error=true`);
+        throw error; // Lanzamos el error para manejarlo en la ruta
     }
 };
 

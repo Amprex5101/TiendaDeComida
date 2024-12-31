@@ -10,15 +10,16 @@
     <input type="text" class="search-bar" placeholder="Entrega a domicilio">
       <ul class="navbar-nav ml-auto">
         <nav class="nav-links">
-            <a href="#">Recoger</a>
+          
+          <% if (user) { %> 
+            <a href="/pedidos/Ventas/pedidos">Pedidos</a>
             <a href="/pedidos/Ventas/carrito" class="carrito-icon">
                 🛒
                 <span class="contador-carrito" id="contador-carrito">0</span>
             </a>
-        
-        <% if (user) { %> 
           <!-- Menú del Usuario Autenticado cargado a la derecha -->
-            <img src="/uploads/<%= user.profileImage ? user.profileImage : '/images/user-default.png' %>" class="rounded-circle profile-thumbnail mr-2">
+            <img src="/images/<%= user.profileImage || 'default-profile.png' %>" 
+                 class="rounded-circle profile-thumbnail mr-2">
 
             <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= user.name %>
@@ -27,11 +28,12 @@
               <a class="dropdown-item" href="/pedidos/Ventas/perfil">Mi Perfil</a>
               <a class="dropdown-item" href="/about">Acerca de</a>
               <% if (user.role === 'admin') { %>
-                <a class="dropdown-item" href="/pedidos/Ventas/recomendaciones">Agregar Recomendaciones</a>
-                <a class="dropdown-item" href="/pedidos/Ventas/modificaciones">Modificaciones de Recomendaciones</a>
+                <a class="dropdown-item" href="/pedidos/Ventas/modificaciones">Modificar Recomendaciones</a>
+                <a class="dropdown-item" href="/base/users/list">Lista de Usuarios</a>
+                <a class="dropdown-item" href="/pedidos/Ventas/productos">Gestionar Productos</a>
               <% } %>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/auth/logout">Cerrar Sesión</a>
+              <a class="dropdown-item" href="/auth/logout" onclick="cerrarSesion()">Cerrar Sesión</a>
             </div>
 
         <% } else { %>
@@ -43,4 +45,27 @@
       </ul>
     </div>
 </nav>
+<script src="/JS/carrito.js"></script>
+<script>
+function actualizarContadorCarrito() {
+    const listaProductos = JSON.parse(localStorage.getItem('listaProductos')) || [];
+    const contador = document.getElementById('contador-carrito');
+    if (contador) {
+        contador.textContent = listaProductos.length;
+    }
+}
+
+// Actualizar cuando se carga la página
+document.addEventListener('DOMContentLoaded', actualizarContadorCarrito);
+
+// Actualizar cuando cambia el localStorage
+window.addEventListener('storage', function(e) {
+    if (e.key === 'listaProductos') {
+        actualizarContadorCarrito();
+    }
+});
+
+// Ejecutar inmediatamente
+actualizarContadorCarrito();
+</script>
   

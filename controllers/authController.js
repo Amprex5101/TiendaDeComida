@@ -30,7 +30,12 @@ exports.registerUser = async (req, res) => {
       req.flash('error_msg', errors.map(error => error.msg).join('. '));
       return res.redirect('/');
     } else {
-      const newUser = new User({ name, email, password });
+      const newUser = new User({ 
+        name, 
+        email, 
+        password,
+        profileImage: 'user-default.png'
+      });
       const salt = await bcrypt.genSalt(10);
       newUser.password = await bcrypt.hash(password, salt);
       await newUser.save();

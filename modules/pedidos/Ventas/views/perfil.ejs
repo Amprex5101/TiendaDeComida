@@ -1,38 +1,41 @@
 <link href="/css/perfil.css" rel="stylesheet"> 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <div class="contenedor">
-
-
-<div class="profile-container">
-    <div class="view-mode">
-        <img src="/uploads/<%= user.profileImage ? user.profileImage : '/images/user-default.png' %>" alt="Imagen de perfil" class="profile-image">
-       
-        <div class="profile-job"><%= user.name %></div>
-        <div class="button-container">
-            <button class="button-edit" onclick="toggleEditMode()">Editar Perfil</button>
-           
-        </div>
-    </div>
-
-    <form action="/profile/update" method="POST" enctype="multipart/form-data" class="edit-mode" id="editForm">
-        <div class="text-center">
-            <label for="profileImage">
-                <img src="/uploads/<%= user.profileImage ? user.profileImage : '/images/user-default.png' %>" alt="Imagen de perfil" class="profile-image" id="profilePreview">
-            </label>
-            <input type="file" id="profileImage" name="profileImage" class="d-none" accept="image/*" onchange="previewImage(event)">
-        </div>
-
-        <div class="mb-3">
-            <label class="edit-nombre" for="name"><%= user.name %></label>
-            <input type="text" id="name" name="name" placeholder="Ingresa tu nombre" required>
-        </div>
-
-        <div class="text-center">
+    <div class="profile-container">
+        <div class="view-mode" id="viewMode">
+            <img src="/images/<%= user.profileImage || 'default-profile.png' %>" alt="Imagen de perfil" class="profile-image">
+            <div class="profile-job"><%= user.name %></div>
             <div class="button-container">
-                <button type="submit" class="button">Guardar Cambios</button>
-                <button type="button" class="button" onclick="toggleEditMode()">Cancelar</button>
+                <button class="button-edit" onclick="toggleEditMode()">Editar Perfil</button>
             </div>
         </div>
-    </form>
+
+        <form action="/pedidos/Ventas/actualizarPerfil" method="POST" enctype="multipart/form-data" class="edit-mode" id="editForm" style="display: none;">
+            <div class="text-center">
+                <label for="profileImage" class="cursor-pointer">
+                    <img src="/images/<%= user.profileImage || 'default-profile.png' %>" alt="Imagen de perfil" class="profile-image" id="profilePreview">
+                    <div class="image-overlay">
+                        <i class="fas fa-camera"></i>
+                        <span>Cambiar foto</span>
+                    </div>
+                </label>
+                <input type="file" id="profileImage" name="profileImage" class="d-none" accept="image/*" onchange="previewImage(event)">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="name">Nombre</label>
+                <input type="text" class="form-control" id="name" name="name" value="<%= user.name %>" required>
+            </div>
+
+            <div class="text-center">
+                <div class="button-container">
+                    <button type="submit" class="button">Guardar Cambios</button>
+                    <button type="button" class="button" onclick="toggleEditMode()">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
-</div>
+
 <script src="/JS/perfil.js"></script>

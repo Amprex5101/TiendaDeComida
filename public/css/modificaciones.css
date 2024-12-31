@@ -74,3 +74,19 @@
 .seccion-header .btn-danger:hover {
     z-index: 1;
 }
+
+.d-flex {
+    display: flex !important;
+}
+
+.justify-content-between {
+    justify-content: space-between !important;
+}
+
+.align-items-center {
+    align-items: center !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}

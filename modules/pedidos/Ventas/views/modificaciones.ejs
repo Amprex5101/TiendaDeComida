@@ -7,7 +7,12 @@
 </head>
 
 <div class="container mt-4 mb-4">
-    <h2>Modificar Recomendaciones</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Modificar Recomendaciones</h2>
+        <a href="/pedidos/Ventas/recomendaciones" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Agregar Recomendaciones
+        </a>
+    </div>
     
     <div id="secciones-container">
         <% if (recomendaciones && recomendaciones.length > 0) { %>

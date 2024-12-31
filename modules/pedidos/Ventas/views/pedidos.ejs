@@ -1,0 +1,65 @@
+<link href="/css/pedidos.css" rel="stylesheet">
+
+<div class="pedidos-container">
+    <h1>Mis Pedidos</h1>
+    
+    <div class="pedidos-lista" id="pedidos-lista">
+        <% if (pedidos && pedidos.length > 0) { %>
+            <% pedidos.forEach(pedido => { %>
+                <div class="pedido-card">
+                    <div class="pedido-header">
+                        <span class="pedido-fecha">
+                            <%= new Date(pedido.fecha).toLocaleDateString('es-MX', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            }) %>
+                        </span>
+                        <span class="pedido-estado <%= pedido.estado %>">
+                            <%= pedido.estado ? pedido.estado.toUpperCase() : 'PENDIENTE' %>
+                        </span>
+                    </div>
+                    
+                    <div class="pedido-productos">
+                        <% if (pedido.productos && pedido.productos.length > 0) { %>
+                            <% pedido.productos.forEach(producto => { %>
+                                <div class="producto-item">
+                                    <span class="producto-nombre">
+                                        <%= producto.nombre_producto || 'Producto sin nombre' %>
+                                    </span>
+                                    <span class="producto-cantidad">
+                                        x<%= producto.cantidad_producto || 0 %>
+                                    </span>
+                                    <span class="producto-precio">
+                                        $<%= producto.precio_base_producto ? producto.precio_base_producto.toFixed(2) : '0.00' %>
+                                    </span>
+                                </div>
+                            <% }) %>
+                        <% } else { %>
+                            <div class="no-productos">
+                                <p>No hay productos en este pedido</p>
+                            </div>
+                        <% } %>
+                    </div>
+                    
+                    <div class="pedido-footer">
+                        <span class="pedido-total">
+                            Total: $<%= pedido.total ? pedido.total.toFixed(2) : '0.00' %>
+                        </span>
+                        <button class="btn-imprimir" onclick="imprimirPedido('<%= pedido._id %>')">
+                            🖨️ Imprimir
+                        </button>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <div class="no-pedidos">
+                <p>No tienes pedidos realizados</p>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<script src="/JS/pedidos.js"></script>

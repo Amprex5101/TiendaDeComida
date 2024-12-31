@@ -34,17 +34,18 @@ mongoose.connect(process.env.MONGO_URI)
 // EJS setup: configura múltiples carpetas para vistas
 app.set('views', [
   path.join(__dirname, 'views'), // Carpeta global de vistas
-  path.join(__dirname, 'modules', 'pedidos', 'Ventas', 'views') // Carpeta específica de módulos
+  path.join(__dirname, 'modules/pedidos/Ventas/views') // Carpeta específica de módulos
 ]);
 app.set('view engine', 'ejs');
 
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); 
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 // En tu archivo principal de Express, asegúrate de configurar la carpeta `public`:
 
 // Bodyparser
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 // Express session
 app.use(session({
