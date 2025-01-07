@@ -1,13 +1,10 @@
 const bcrypt = require('bcryptjs');
-
 // Función reutilizable para obtener resultados paginados y filtrados
 exports.getItemsPaginated = async(req, res, moduleName, view, Model, title) => {
-
     if (req.user.role !== 'admin') {
       req.flash('error_msg', 'Acceso denegado');
       return res.redirect('/');
     }
-
     const searchFields = Object.keys(Model.schema.paths).filter(path => {
       const schemaType = Model.schema.paths[path];
       return (
@@ -15,18 +12,14 @@ exports.getItemsPaginated = async(req, res, moduleName, view, Model, title) => {
         (schemaType.instance === 'Array' && schemaType.caster.instance === 'String')
       ) && !path.startsWith('_');
     });
-
     let searchQuery = req.query.search || ''; // Obtener la consulta de búsqueda
     let page = parseInt(req.query.page) || 1; // Obtener el número de página
     let limit = parseInt(req.query.limit) || 5; // Número de registros por página
     let skip = (page - 1) * limit; // Calcular cuántos registros saltar
-  
     // Asegurarse de que los valores de página y límite sean válidos
     if (page < 1) page = 1;
     if (limit < 1) limit = 5;
-  
     let results, totalResults;
-  
     try {
       // Construir el filtro de búsqueda en base a los campos indicados
       const searchRegex = searchQuery 
@@ -39,16 +32,12 @@ exports.getItemsPaginated = async(req, res, moduleName, view, Model, title) => {
       results = await Model.find(searchRegex)
         .skip(skip)
         .limit(limit);
-  
       // Contar el total de resultados
       totalResults = await Model.countDocuments(searchRegex);
-  
       // Calcular total de páginas
       let totalPages = Math.ceil(totalResults / limit);
-  
       // Asegurarse de que la página no exceda el número total de páginas
       if (page > totalPages) page = totalPages;
-  
       // Renderizar la vista, pasando los resultados, búsqueda y paginación
       res.renderModuleView(moduleName, view, {
         results,
@@ -68,25 +57,6 @@ exports.getItemsPaginated = async(req, res, moduleName, view, Model, title) => {
       res.redirect('/');
     }
 };
-
-exports.showCreateItemForm = async (req, res, moduleName, view, Model, typeform) => {
-  try { 
-    res.renderModuleView(moduleName, view, { 
-      user: req.user, 
-      modules:req.modules, 
-      moduleName:moduleName,
-      title: `${Model.modelName}`,
-      model: Model,
-      typeform: typeform
-    });
-    // Renderiza el formulario de edición
-  } catch (err) {
-    console.error(`Error al crear el ${Model.modelName} para crear:`, err);
-    req.flash('error_msg', `Error al crear el ${Model.modelName}.`);
-    res.redirect(`/${moduleName}/list`);
-  }
-};
-
 
 exports.createItem = async (req, res, moduleName, Model) => {
     try {
@@ -194,30 +164,6 @@ exports.deleteItem = async (req, res, moduleName, Model) => {
     }
 };
 
-exports.showEditUserForm = async (req, res, moduleName, view, Model, typeform) => {
-  try { 
-    const item = await Model.findById(req.params.id); // Buscar el usuario por ID
-    if (!item) {
-      req.flash('error_msg', `${Model.modelName} no encontrado.`);
-      return res.redirect(`/${moduleName}/list`);
-    }
-    //console.info(`pasa ${item}`);
-
-    res.renderModuleView(moduleName, view, {
-      title: `${Model.modelName}`,
-      moduleName,
-      item,
-      user: req.user,  // Usuario autenticado
-      modules: req.modules,
-      typeform: typeform
-    });
-    // Renderiza el formulario de edición
-  } catch (err) {
-    console.error(`Error al cargar el ${Model.modelName} para editar:`, err);
-    req.flash('error_msg', `Error al cargar el ${Model.modelName}.`);
-    res.redirect(`/${moduleName}/list`);
-  }
-};
 
 exports.showPedidos = async (req, res, moduleName, view, Model, title) => {
 
@@ -230,16 +176,3 @@ exports.showPedidos = async (req, res, moduleName, view, Model, title) => {
     // Renderiza el formulario de edición
 };
 
-exports.showProductos = async(req, res, moduleName, view, Model, title) => {
-  if (req.user.role !== 'admin') {
-    req.flash('error_msg', 'Acceso denegado');
-    return res.redirect('/');
-  }
-  res.renderModuleView(moduleName, view, {
-    title: title,
-    moduleName: moduleName,
-    user: req.user,  // Usuario autenticado
-    modules: req.modules
-  });
-
-}

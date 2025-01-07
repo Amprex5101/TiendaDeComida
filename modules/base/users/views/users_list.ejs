@@ -24,7 +24,7 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
             </form>
             <%- include('../../../../views/partials/pages',{ modelView: 'users' }) %>
-            <a href="/base/users/export" class="btn btn-primary">Export to CSV</a>
+            <a href="#" class="btn btn-primary" onclick="exportarCSV()">Export to CSV</a>
         </div>
 
         <!-- Tabla de Usuarios -->
@@ -173,6 +173,7 @@
             // Inicializar todos los dropdowns
             $('.dropdown-toggle').dropdown();
         });
+        
 
         function mostrarFormularioCrear() {
             $('#crearUsuarioModal').modal('show');
@@ -207,6 +208,37 @@
                 });
             }
         }
+        
+        function exportarCSV() {
+            if (confirm('¿Estás seguro de exportar los usuarios?')) {
+                fetch(`/base/users/export`, {
+                    method: 'GET',
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.blob(); // Convertir la respuesta en un blob
+                    } else {
+                        throw new Error('Error al exportar los usuarios.');
+                    }
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'users.csv'; // Nombre del archivo
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url); // Limpieza del blob URL
+                    alert('Archivo CSV exportado con éxito.');
+                })
+                .catch(error => {
+                    console.error('Error al exportar los usuarios:', error);
+                    alert('Hubo un error al exportar los usuarios.');
+                });
+            }
+        }
+
 
         function showPreview(input, previewId) {
             const preview = document.getElementById(previewId);

@@ -1,6 +1,5 @@
 // routes/userRoutes.js
 const express = require('express');
-const Ventas = require('./Ventas/models'); // Asegúrate de que este modelo esté correctamente definido.
 const configbaseRoutes = require('../../routes/rutaspedidos'); // Ruta del archivo que gestiona las rutas de Ventas
 const pedidosController = require('./controllers/pedidosController');
 
@@ -18,7 +17,6 @@ module.exports = function(app) {
         view_modificaciones: 'modificaciones', // Vista para modificaciones
         view_carrito: 'carrito', // Vista para carrito
         view_productos: 'productos',
-        model: Ventas,               // Modelo de Ventas
         route: '/Ventas',            // Ruta base para este módulo
         title: 'Ventas'              // Título para este módulo
     });

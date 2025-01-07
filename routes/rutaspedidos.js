@@ -9,6 +9,9 @@ const Menu = require('../modules/pedidos/Ventas/models/menu'); // Importa el mod
 const User = require('../modules//base/users/models'); // Importa el modelo User
 const fs = require('fs');
 
+
+const router = express.Router();
+
 // Primero, definimos la ruta absoluta correcta para las imágenes
 const uploadDirectory = path.join(__dirname, '../public/images');
 
@@ -42,48 +45,6 @@ const upload = multer({
     }
 });
 
-// Middleware para manejar errores de multer
-const handleMulterError = (error, req, res, next) => {
-    if (error instanceof multer.MulterError) {
-        if (error.code === 'LIMIT_FILE_SIZE') {
-            return res.status(400).json({
-                message: 'El archivo es demasiado grande. El tamaño máximo permitido es 10MB'
-            });
-        }
-        return res.status(400).json({
-            message: 'Error al subir el archivo'
-        });
-    }
-    next(error);
-};
-
-// Configuración específica de multer para imágenes de perfil
-const profileStorage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        const uploadDir = path.join(__dirname, '../public/images');
-        if (!fs.existsSync(uploadDir)){
-            fs.mkdirSync(uploadDir, { recursive: true });
-        }
-        cb(null, uploadDir);
-    },
-    filename: function(req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + path.extname(file.originalname));
-    }
-});
-
-const uploadProfile = multer({ 
-    storage: profileStorage,
-    fileFilter: function(req, file, cb) {
-        if (!file.mimetype.startsWith('image/')) {
-            return cb(new Error('Solo se permiten archivos de imagen'), false);
-        }
-        cb(null, true);
-    },
-    limits: {
-        fileSize: 10 * 1024 * 1024 // 10MB
-    }
-});
 
 // Configuración para la subida de imágenes de usuario
 const userStorage = multer.diskStorage({

@@ -195,25 +195,3 @@ exports.showMenu = async (req, res, moduleName, view, model, title) => {
         res.redirect('/');
     }
 };
-
-exports.showCarrito = async (req, res, moduleName, view, model, title) => {
-    try {
-        // Verificar si existe el carrito en la sesión
-        console.log('Sesión actual:', req.session); // Para debugging
-        console.log('Carrito en sesión:', req.session.carrito); // Para debugging
-
-        const carrito = req.session.carrito || { productos: [], total: 0 };
-        
-        res.renderModuleView(moduleName, view, {
-            title: title,
-            moduleName: moduleName,
-            user: req.user,
-            modules: req.modules,
-            carrito: carrito
-        });
-    } catch (error) {
-        console.error('Error al mostrar el carrito:', error);
-        req.flash('error_msg', 'Error al cargar el carrito');
-        res.redirect('/');
-    }
-};
